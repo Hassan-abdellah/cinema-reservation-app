@@ -1,0 +1,638 @@
+{
+  "id": "52fb5e90-ba26-48d7-9d3b-dd39e2db67c8",
+  "prevId": "13742244-c4f3-4c5b-911c-4b4f413d5874",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.cinema_admins": {
+      "name": "cinema_admins",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cinema_id": {
+          "name": "cinema_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "cinema_roles",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'manager'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "cinema_admins_user_id_users_clerk_id_fk": {
+          "name": "cinema_admins_user_id_users_clerk_id_fk",
+          "tableFrom": "cinema_admins",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "clerk_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "cinema_admins_cinema_id_cinemas_id_fk": {
+          "name": "cinema_admins_cinema_id_cinemas_id_fk",
+          "tableFrom": "cinema_admins",
+          "tableTo": "cinemas",
+          "columnsFrom": [
+            "cinema_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "cinema_admins_user_id_cinema_id_pk": {
+          "name": "cinema_admins_user_id_cinema_id_pk",
+          "columns": [
+            "user_id",
+            "cinema_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.cinemas": {
+      "name": "cinemas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "number_of_halls": {
+          "name": "number_of_halls",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "city": {
+          "name": "city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "address": {
+          "name": "address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "cinemas_name_unique": {
+          "name": "cinemas_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.halls": {
+      "name": "halls",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cinema_id": {
+          "name": "cinema_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "grid_cols": {
+          "name": "grid_cols",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "grid_rows": {
+          "name": "grid_rows",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "layout": {
+          "name": "layout",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_configured": {
+          "name": "is_configured",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "halls_cinema_id_cinemas_id_fk": {
+          "name": "halls_cinema_id_cinemas_id_fk",
+          "tableFrom": "halls",
+          "tableTo": "cinemas",
+          "columnsFrom": [
+            "cinema_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "halls_cinema_id_name_unique": {
+          "name": "halls_cinema_id_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "cinema_id",
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "clerk_id": {
+          "name": "clerk_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "users_rolse",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'customer'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_clerk_id_unique": {
+          "name": "users_clerk_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "clerk_id"
+          ]
+        },
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.movies": {
+      "name": "movies",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "director_name": {
+          "name": "director_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cast": {
+          "name": "cast",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "ARRAY[]::text[]"
+        },
+        "poster_url": {
+          "name": "poster_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration_minutes": {
+          "name": "duration_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "trailer_url": {
+          "name": "trailer_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.shows": {
+      "name": "shows",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "movie_id": {
+          "name": "movie_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hall_id": {
+          "name": "hall_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price": {
+          "name": "price",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "archived_at": {
+          "name": "archived_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "shows_movie_id_movies_id_fk": {
+          "name": "shows_movie_id_movies_id_fk",
+          "tableFrom": "shows",
+          "tableTo": "movies",
+          "columnsFrom": [
+            "movie_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "shows_hall_id_halls_id_fk": {
+          "name": "shows_hall_id_halls_id_fk",
+          "tableFrom": "shows",
+          "tableTo": "halls",
+          "columnsFrom": [
+            "hall_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.seats": {
+      "name": "seats",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "hall_id": {
+          "name": "hall_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "row_label": {
+          "name": "row_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "row_number": {
+          "name": "row_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "grid_x": {
+          "name": "grid_x",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "grid_y": {
+          "name": "grid_y",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'standard'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "seats_hall_id_halls_id_fk": {
+          "name": "seats_hall_id_halls_id_fk",
+          "tableFrom": "seats",
+          "tableTo": "halls",
+          "columnsFrom": [
+            "hall_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "seats_hall_id_grid_x_grid_y_unique": {
+          "name": "seats_hall_id_grid_x_grid_y_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "hall_id",
+            "grid_x",
+            "grid_y"
+          ]
+        },
+        "seats_hall_id_label_unique": {
+          "name": "seats_hall_id_label_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "hall_id",
+            "label"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.cinema_roles": {
+      "name": "cinema_roles",
+      "schema": "public",
+      "values": [
+        "manager",
+        "owner",
+        "staff"
+      ]
+    },
+    "public.users_rolse": {
+      "name": "users_rolse",
+      "schema": "public",
+      "values": [
+        "customer",
+        "admin",
+        "super-admin"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
