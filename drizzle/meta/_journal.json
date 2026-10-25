@@ -8,6 +8,13 @@
       "when": 1792883982836,
       "tag": "0000_neat_red_skull",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792969951182,
+      "tag": "0001_boring_monster_badoon",
+      "breakpoints": true
     }
   ]
 }
