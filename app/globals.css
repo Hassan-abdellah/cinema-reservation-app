@@ -12,15 +12,25 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply m-0 p-0 outline-0;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .container {
+    @apply md:max-w-[calc(100%-4rem)] max-w-[calc(100%-1rem)] mx-auto;
+  }
+  .page-height {
+    @apply h-[calc(100vh-var(--nav-height))];
+  }
+}
+
+.cl-internal-1n0t203,
+.cl-internal-r93pb5 {
+  display: none !important;
 }
