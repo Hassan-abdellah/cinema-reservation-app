@@ -4,8 +4,9 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/layout/Navbar";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const arimo = Arimo({
   variable: "--font-arimo",
@@ -19,7 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={cn("h-full", arimo.variable, "font-sans", geist.variable)}>
+    <html
+      lang="en"
+      className={cn("h-full", arimo.variable, "font-sans", geist.variable)}
+    >
       <body>
         <Suspense>
           <ClerkProvider
@@ -27,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             afterSignOutUrl="/auth/sign-in"
             signUpUrl="/auth/sign-up"
           >
+            <Navbar />
             {children}
           </ClerkProvider>
         </Suspense>
