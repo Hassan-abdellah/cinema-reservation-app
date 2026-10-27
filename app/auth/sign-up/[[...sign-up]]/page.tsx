@@ -6,7 +6,6 @@ const RegisterPage = () => {
       <SignUp
         signInUrl="/auth/sign-in"
         afterSignOutUrl="/auth/sign-in"
-        forceRedirectUrl="/"
         oauthFlow="popup"
       />
     </section>

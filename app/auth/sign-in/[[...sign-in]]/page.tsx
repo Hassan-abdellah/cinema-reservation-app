@@ -5,9 +5,7 @@ const LoginPage = () => {
     <section className="flex items-center justify-center h-screen">
       <SignIn
         signUpUrl="/auth/sign-up"
-        signInUrl="/auth/sign-in"
         afterSignOutUrl="/auth/sign-in"
-        forceRedirectUrl="/"
         oauthFlow="popup"
       />
     </section>
