@@ -3,8 +3,11 @@ import { Arimo, Geist } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
-import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/Navbar";
+import { Toaster } from "@/components/ui/toast";
+import { cn } from "cn";
+import ReactQueryProvider from "@/components/layout/ReactQueryProvider";
+import { Spinner } from "@/components/ui/spinner";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -25,16 +28,26 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn("h-full", arimo.variable, "font-sans", geist.variable)}
     >
       <body>
-        <Suspense>
-          <ClerkProvider
-            signInUrl="/auth/sign-in"
-            afterSignOutUrl="/auth/sign-in"
-            signUpUrl="/auth/sign-up"
+        <ReactQueryProvider>
+          <Suspense
+            fallback={
+              <section className="flex items-center justify-center h-screen">
+                <Spinner className="size-10" />
+              </section>
+            }
           >
-            <Navbar />
-            {children}
-          </ClerkProvider>
-        </Suspense>
+            <ClerkProvider
+              signInUrl="/auth/sign-in"
+              afterSignOutUrl="/auth/sign-in"
+              signUpUrl="/auth/sign-up"
+            >
+              <Navbar />
+              <main className="container">{children}</main>
+            </ClerkProvider>
+          </Suspense>
+        </ReactQueryProvider>
+
+        <Toaster />
       </body>
     </html>
   );

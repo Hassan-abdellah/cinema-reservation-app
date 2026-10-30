@@ -6,7 +6,6 @@ import { cache } from "react";
 
 // logged in user
 export const getLoggedInUser = cache(async () => {
-  console.log("called");
   const { userId } = await auth();
 
   if (!userId) return null;
@@ -15,7 +14,7 @@ export const getLoggedInUser = cache(async () => {
     where: eq(users.clerkId, userId),
   });
 
-  if (existingUser) return existingUser;
+  if (existingUser) return existingUser ?? null;
 });
 
 // admin
