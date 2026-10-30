@@ -1,4 +1,4 @@
-import { getLoggedInUser } from "@/libs/auth";
+import { getLoggedInUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 const LoginSuccessPage = async () => {

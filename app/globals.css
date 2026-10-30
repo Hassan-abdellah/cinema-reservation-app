@@ -143,6 +143,10 @@
   .page-height {
     @apply h-[calc(100vh-var(--nav-height))];
   }
+
+  .input-field {
+    @apply border-2 border-gray-300 focus-visible:ring-yellow-500 focus-visible:border-yellow-500 focus-within:ring-yellow-500 focus-within:border-yellow-500 has-[[data-slot=input-group-control]:focus-within]:border-yellow-500 has-[[data-slot=input-group-control]:focus-within]:ring-yellow-500;
+  }
 }
 
 .cl-internal-1n0t203,
