@@ -1,12 +1,8 @@
 import CreateMovieForm from "@/components/movies/CreateMovieForm";
-import { getLoggedInUser } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { isSuperAdmin } from "@/lib/auth";
 
 const CreateMoviePage = async () => {
-  const superAdmin = await getLoggedInUser();
-
-  if (!superAdmin || superAdmin.role !== "super-admin")
-    redirect("/after-login");
+  await isSuperAdmin();
   return (
     <section>
       <CreateMovieForm />
