@@ -31,7 +31,7 @@ export const columns = columnHelper.columns([
           {cinemaHalls.map((hall) => (
             <li key={hall.id}>
               <Link
-                href={`halls/${hall.id}`}
+                href={`/halls/${hall.id}`}
                 className="bg-steel-azure rounded-lg text-white px-2 py-1 underline"
               >
                 {hall.name}
