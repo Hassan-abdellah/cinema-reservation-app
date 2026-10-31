@@ -1,4 +1,5 @@
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { Hall } from "./halls";
 
 export const cinemas = pgTable("cinemas", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -16,3 +17,4 @@ export const cinemas = pgTable("cinemas", {
 
 export type Cinema = typeof cinemas.$inferSelect;
 export type NewCinema = typeof cinemas.$inferInsert;
+export type CinemaWithHalls = Cinema & { halls: Hall[] };
